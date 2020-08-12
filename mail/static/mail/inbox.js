@@ -21,7 +21,16 @@ function compose_email() {
   document.querySelector('#compose-recipients').value = '';
   document.querySelector('#compose-subject').value = '';
   document.querySelector('#compose-body').value = '';
+
+  let param = { method : "POST",
+                body: JSON.stringify({"a": 1, "b": 2})
+              }
 }
+  fetch('emails', param)
+  .then((response) => response.json())
+  .then(data => {
+    console.log(data)
+  })
 
 function load_mailbox(mailbox) {
 
@@ -41,5 +50,4 @@ function load_mailbox(mailbox) {
     .then(data => {
       console.log(data)
     })
-  // })
 }
