@@ -1,0 +1,19 @@
+textarea {
+    min-height: 400px;
+}
+
+#webpage-Container {
+    margin-top: 5%;
+}
+
+.title-inside {
+    margin-bottom: 3%;
+}
+
+footer {
+    margin-top: 2%;
+}
+
+.Message_error{
+    margin: 20px 0px;
+}

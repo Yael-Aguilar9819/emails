@@ -1,0 +1,68 @@
+{% extends "mail/layout.html" %}
+
+{% block body %}
+
+    <h2 class="title-inside">Register</h2>
+
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+
+    <form action="{% url 'mail:register' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <input id="email-register" class="form-control" type="email" name="email" placeholder="Email Address">
+        </div>
+        <div class="form-group">
+            <input id="pass1-register" class="form-control" type="password" name="password" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <input id="confirm-pass-register" class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
+        </div>
+        <input id="button_to_register" class="btn btn-primary" type="submit" value="Register">
+    </form>
+
+    <footer>Have an account? <a href="{% url 'mail:login' %}">Log In here.</a> </footer>
+
+    <script>
+        let email = document.querySelector("#email-register")
+        let first_pass = document.querySelector("#pass1-register")
+        let second_pass = document.querySelector("#confirm-pass-register")
+
+        let button_register = document.querySelector("#button_to_register")
+        button_register.disabled = true;
+        
+        let fields_to_check = [email, first_pass, second_pass];
+
+        function all_fields_full() {
+            for (i=0; i < fields_to_check.length; i++) {
+                if (fields_to_check[i].value === "") {
+                    button_register.disabled = true;
+                    break;
+                }
+                // if the whole loop completes, that means the 3 fields are full
+                button_register.disabled = false;
+            }
+        }
+
+        function same_pass () {
+            if (first_pass.value === second_pass.value) {
+                button_register.disabled = false;
+            }
+
+            else {
+                button_register.disabled = true;
+            }
+        }
+        
+        email.addEventListener("input", all_fields_full);
+        first_pass.addEventListener("input", all_fields_full);
+        second_pass.addEventListener("input", all_fields_full);
+
+        first_pass.addEventListener("input", same_pass);
+        second_pass.addEventListener("input", same_pass);
+
+        
+
+    </script>
+{% endblock %}
