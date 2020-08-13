@@ -22,15 +22,27 @@ function compose_email() {
   document.querySelector('#compose-subject').value = '';
   document.querySelector('#compose-body').value = '';
 
-  let param = { method : "POST",
-                body: JSON.stringify({"a": 1, "b": 2})
-              }
+  document.querySelector('#compose-form').addEventListener('submit', formsubmit) 
+
+  function formsubmit(){
+    let data_to_server = {
+      Username: document.querySelector('#user-email').value,
+      recipients: document.querySelector('#compose-recipients').value
+    }
+  
+    fetch('emails', {
+      method : "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data_to_server)
+      })
+    .then((response) => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error(`Error: ${error}`))
+  }
+  
 }
-  fetch('emails', param)
-  .then((response) => response.json())
-  .then(data => {
-    console.log(data)
-  })
 
 function load_mailbox(mailbox) {
 
