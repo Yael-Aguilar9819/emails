@@ -27,7 +27,9 @@ function compose_email() {
   function formsubmit(){
     let data_to_server = {
       Username: document.querySelector('#user-email').value,
-      recipients: document.querySelector('#compose-recipients').value
+      recipients: document.querySelector('#compose-recipients').value,
+      subject: document.querySelector('#compose-subject').value,
+      body: document.querySelector('#compose-body').value
     }
   
     fetch('emails', {
