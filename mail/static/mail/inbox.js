@@ -68,13 +68,21 @@ function load_mailbox(mailbox) {
       // Loops through all emails
       data.forEach(element => {
         console.log(element);
-        console.log(element.sender);
+        const sender_content = element.sender;
+        const subject_content = element.subject;
+        const time_email = element.timestamp;
+      
+        console.log(sender_content);
+        console.log(subject_content);
+        console.log(time_email);
+
+        const main_menu = document.querySelector('#emails-view');
+
+        main_menu.appendChild(function() {
+          let main_div = document.createElement('div');
+          main_div.innerHTML = "Yei";
+          return main_div;
+        });
       });
-      // const sender_content = data['0'].sender;
-      // const subject_content = data['subject'];
-      // const time_email = data['timestamp'];
-      // console.log(sender_content)
-      // console.log(subject_content)
-      // console.log(time_email)
     })
 }
