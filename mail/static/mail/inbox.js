@@ -68,21 +68,31 @@ function load_mailbox(mailbox) {
       // Loops through all emails
       data.forEach(element => {
         console.log(element);
+        const email_id = element.id
         const sender_content = element.sender;
         const subject_content = element.subject;
         const time_email = element.timestamp;
+        const read = element.read;
+        const archived = element.archived;
+        
+        
+        if (archived === true) {
+          return;
+        }
       
-        console.log(sender_content);
-        console.log(subject_content);
-        console.log(time_email);
-
         const main_menu = document.querySelector('#emails-view');
+        
+        // This is the main Div for the anchor
+        let main_div = document.createElement('div');
+        main_div.className = "form-group";
+        main_menu.appendChild(main_div);
 
-        main_menu.appendChild(function() {
-          let main_div = document.createElement('div');
-          main_div.innerHTML = "Yei";
-          return main_div;
-        });
+        let anchor_email = document.createElement('a');
+        anchor_email.className = 'btn btn-outline-primary';
+        anchor_email.innerHTML = `From: ${sender_content} Subject: ${subject_content} At ${time_email}`;
+        anchor_email.href=`https://wikipedia.org/${email_id}`;
+        main_div.appendChild(anchor_email);
+        
       });
     })
 }
