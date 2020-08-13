@@ -32,7 +32,7 @@ function compose_email() {
       subject: document.querySelector('#compose-subject').value,
       body: document.querySelector('#compose-body').value
     }
-  
+    load_mailbox('sent');
     fetch('emails', {
       method : "POST",
       headers: {
@@ -43,8 +43,8 @@ function compose_email() {
     .then((response) => response.json())
     .then(data => console.log(data))
     .catch(error => console.error(`Error: ${error}`))
+
   }
-  
 }
 
 function load_mailbox(mailbox) {
@@ -63,6 +63,18 @@ function load_mailbox(mailbox) {
   fetch(`emails/${mailbox}`)
     .then((response) => response.json())
     .then(data => {
-      console.log(data)
+      // console.log(data);
+
+      // Loops through all emails
+      data.forEach(element => {
+        console.log(element);
+        console.log(element.sender);
+      });
+      // const sender_content = data['0'].sender;
+      // const subject_content = data['subject'];
+      // const time_email = data['timestamp'];
+      // console.log(sender_content)
+      // console.log(subject_content)
+      // console.log(time_email)
     })
 }
