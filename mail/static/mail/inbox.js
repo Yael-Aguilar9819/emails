@@ -25,6 +25,7 @@ function compose_email() {
   document.querySelector('#compose-form').addEventListener('submit', formsubmit) 
 
   function formsubmit(){
+    
     let data_to_server = {
       Username: document.querySelector('#user-email').value,
       recipients: document.querySelector('#compose-recipients').value,

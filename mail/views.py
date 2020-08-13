@@ -28,7 +28,6 @@ def compose(request):
     # Composing a new email must be via POST
     if request.method != "POST":
         return JsonResponse({"error": "POST request required."}, status=400)
-
     # Check recipient emails
     data = json.loads(request.body)
     emails = [email.strip() for email in data.get("recipients").split(",")]
@@ -67,7 +66,6 @@ def compose(request):
         )
         email.save()
         for recipient in recipients:
-            print(recipient)
             email.recipients.add(recipient)
         email.save()
 
@@ -95,6 +93,10 @@ def mailbox(request, mailbox):
 
     # Return emails in reverse chronologial order
     emails = emails.order_by("-timestamp").all()
+    for email in emails:
+        print(email.timestamp)
+        print(email.serialize())
+        print('\n')
     return JsonResponse([email.serialize() for email in emails], safe=False)
 
 
