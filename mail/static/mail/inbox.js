@@ -58,12 +58,10 @@ function load_mailbox(mailbox) {
     mailbox.charAt(0).toUpperCase() + mailbox.slice(1)
   }</h3>`;
 
-  // document.addEventListener('DOMContentLoaded', function(){
   console.log(mailbox);
   fetch(`emails/${mailbox}`)
     .then((response) => response.json())
     .then(data => {
-      // console.log(data);
 
       // Loops through all emails
       data.forEach(element => {
