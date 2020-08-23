@@ -86,9 +86,14 @@ function load_mailbox(mailbox) {
         main_menu.appendChild(main_div);
 
         let anchor_email = document.createElement('a');
+
+        // Then it adds the content to each of the emails divs
         anchor_email.className = 'btn btn-outline-primary';
+        anchor_email.id = email_id;
         anchor_email.innerHTML = `From: ${sender_content} Subject: ${subject_content} At ${time_email}`;
-        anchor_email.href=`https://wikipedia.org/${email_id}`;
+        // anchor_email.href=`emails/${email_id}`;
+        anchor_email.href = '#';
+        // document.querySelector('#email_id').addEventListener('submit', formsubmit) 
         main_div.appendChild(anchor_email);
         
       });
