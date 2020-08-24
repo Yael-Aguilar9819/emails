@@ -14,19 +14,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // This functions fetches the email from the DB and displays it
 function show_email() {
+
+  document.querySelector('#emails-view').style.display = 'none';
+  document.querySelector('#compose-view').style.display = 'none';
+  document.querySelector('#individual-email').style.display = 'block';
+
+
   let email_id = this.getAttribute("data-email_id")
 
   fetch(`emails/${email_id}`)
     .then((response) => response.json())
     .then(data => {
       console.log(data);
+      
+      document.querySelector('#sender-email').value = 25;
     })
 
-  document.querySelector('#emails-view').style.display = 'none';
-  document.querySelector('#compose-view').style.display = 'none';
-  document.querySelector('#individual-email').style.display = 'block';
-
-  
+   
 }
 
 
