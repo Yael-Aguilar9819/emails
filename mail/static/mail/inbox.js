@@ -11,8 +11,22 @@ document.addEventListener('DOMContentLoaded', function() {
   load_mailbox('inbox');
 });
 
+
+// This functions fetches the email from the DB and displays it
 function show_email() {
-  console.log(this.innerHTML)
+  let email_id = this.getAttribute("data-email_id")
+
+  fetch(`emails/${email_id}`)
+    .then((response) => response.json())
+    .then(data => {
+      console.log(data);
+    })
+
+  document.querySelector('#emails-view').style.display = 'none';
+  document.querySelector('#compose-view').style.display = 'none';
+  document.querySelector('#individual-email').style.display = 'block';
+
+  
 }
 
 
@@ -20,6 +34,7 @@ function compose_email() {
 
   // Show compose view and hide other views
   document.querySelector('#emails-view').style.display = 'none';
+  document.querySelector('#individual-email').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'block';
 
   // Clear out composition fields
@@ -55,8 +70,9 @@ function compose_email() {
 function load_mailbox(mailbox) {
 
   // Show the mailbox and hide other views
-  document.querySelector("#emails-view").style.display = "block";
+  document.querySelector('#individual-email').style.display = 'none';
   document.querySelector("#compose-view").style.display = "none";
+  document.querySelector("#emails-view").style.display = "block";
 
   // Show the mailbox name
   document.querySelector("#emails-view").innerHTML = `<h3>${
@@ -97,6 +113,8 @@ function load_mailbox(mailbox) {
         anchor_email.id = `email-${email_id}`;
         anchor_email.innerHTML = `From: ${sender_content} Subject: ${subject_content} At ${time_email}`;
         anchor_email.href = '#';
+        anchor_email.setAttribute("data-email_id", email_id);
+
         main_div.appendChild(anchor_email);
 
         // It's here because the querySelector searches through the DOM tree, so we have to append it firts
