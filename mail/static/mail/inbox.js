@@ -12,6 +12,23 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+// The funciton takes the array of names of recipients, and then 
+function recipients_of_email(array_of_recipients) {
+  let string_recipients = "";
+  for (let i=0; i < array_of_recipients.length; i++) {
+      // console.log(array_of_recipients[i]);
+      if (i === 0) {
+        string_recipients += array_of_recipients[i];
+      }
+      else {
+        string_recipients += ", " + array_of_recipients[i];
+      }
+    }
+    return string_recipients;
+}
+
+
+
 // This functions fetches the email from the DB and displays it
 function show_email() {
 
@@ -27,10 +44,11 @@ function show_email() {
     .then(data => {
       console.log(data);
       
-      document.querySelector('#sender-email').value = 25;
-    })
+      document.querySelector('#sender-email').value = data["id"];
+      document.querySelector('#recipients').value = recipients_of_email(data["recipients"]);
+      
 
-   
+    })
 }
 
 
