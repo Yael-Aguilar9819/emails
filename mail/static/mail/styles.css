@@ -18,3 +18,11 @@ footer {
     margin: 20px 0px;
 } 
 
+.buttons-bottom {
+    margin-bottom: 2%;
+}
+
+.button-right{
+    margin-left:auto; margin-right:0;
+    float:right;
+}
