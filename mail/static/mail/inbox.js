@@ -44,9 +44,10 @@ function show_email() {
     .then(data => {
       console.log(data);
       
-      document.querySelector('#sender-email').value = data["id"];
+      document.querySelector('#sender-email').value = data["sender"];
       document.querySelector('#recipients').value = recipients_of_email(data["recipients"]);
-      
+      document.querySelector('#email-subject').value = data["subject"];
+      document.querySelector('#email-body').value = data["body"];
 
     })
 }
