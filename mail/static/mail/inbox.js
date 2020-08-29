@@ -27,7 +27,21 @@ function recipients_of_email(array_of_recipients) {
     return string_recipients;
 }
 
-
+//Gets data to send an updated status to the email/email_id route, either read or archived
+function send_PUT_update_request(email_id, data_to_update) {
+  
+    console.log(data_to_update)
+    fetch(`emails/${email_id}`, {
+      method : "PUT",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data_to_update)
+      })
+    .then((response) => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error(`Error: ${error}`))
+  }
 
 // This functions fetches the email from the DB and displays it
 function show_email() {
@@ -43,7 +57,16 @@ function show_email() {
     .then((response) => response.json())
     .then(data => {
       console.log(data);
-      
+
+      //Works flawesly
+      if (data["read"] == false) {
+    
+        let read_to_send = {
+        read : true
+        }
+        send_PUT_update_request(email_id, read_to_send);
+      }
+
       document.querySelector('#sender-email').value = data["sender"];
       document.querySelector('#recipients').value = recipients_of_email(data["recipients"]);
       document.querySelector('#email-subject').value = data["subject"];
