@@ -11,6 +11,27 @@ document.addEventListener('DOMContentLoaded', function() {
   load_mailbox('inbox');
 });
 
+//This functions makes 
+function loading_view(view_to_show) {
+  let views= {
+    emails : document.querySelector('#emails-view').style.display, //= 'none'
+    compose : document.querySelector('#compose-view').style.display,
+    individual_email : document.querySelector('#individual-email').style.display,
+  }
+
+  for (var [key, value] of Object.entries(views)) {
+    console.log(key + ' ' + value); // "a 5", "b 7", "c 9"
+    if (key === view_to_show) {
+      console.log('encontrao');
+    }
+}
+
+  console.log(view_to_show);
+  console.log(views[view_to_show]); 
+  //  = 'block';
+
+}
+
 
 // The funciton takes the array of names of recipients, and then 
 function recipients_of_email(array_of_recipients) {
@@ -71,6 +92,13 @@ function show_email() {
       document.querySelector('#recipients').value = recipients_of_email(data["recipients"]);
       document.querySelector('#email-subject').value = data["subject"];
       document.querySelector('#email-body').value = data["body"];
+      document.querySelector('#button-archive').addEventListener("click", function() {
+       loading_view("compose")}
+       )
+
+      document.querySelector('#button-reply').addEventListener("click", function() {
+        console.log(document.querySelector('#user-email').value);
+      })
 
     })
 }
