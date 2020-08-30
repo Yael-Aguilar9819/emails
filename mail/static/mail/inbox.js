@@ -14,30 +14,27 @@ document.addEventListener('DOMContentLoaded', function() {
 //This functions makes 
 function loading_view(view_to_show) {
   let views= {
-    emails : document.querySelector('#emails-view').style.display, //= 'none'
-    compose : document.querySelector('#compose-view').style.display,
-    individual_email : document.querySelector('#individual-email').style.display,
+    emails : document.querySelector('#emails-view'),
+    compose : document.querySelector('#compose-view'),
+    individual_email : document.querySelector('#individual-email'),
   }
 
-  for (var [key, value] of Object.entries(views)) {
-    console.log(key + ' ' + value); // "a 5", "b 7", "c 9"
+  for (let [key, value] of Object.entries(views)) {
     if (key === view_to_show) {
-      console.log('encontrao');
+      value.style.display = 'block';
     }
+
+    else {
+      value.style.display = 'none'      
+    }
+  }
 }
 
-  console.log(view_to_show);
-  console.log(views[view_to_show]); 
-  //  = 'block';
 
-}
-
-
-// The funciton takes the array of names of recipients, and then 
+// The funciton takes the array of names of recipients, and then append them to create a formatted string
 function recipients_of_email(array_of_recipients) {
   let string_recipients = "";
   for (let i=0; i < array_of_recipients.length; i++) {
-      // console.log(array_of_recipients[i]);
       if (i === 0) {
         string_recipients += array_of_recipients[i];
       }
@@ -79,7 +76,7 @@ function show_email() {
     .then(data => {
       console.log(data);
 
-      //Works flawesly
+      //If it's not read, send the signal to make it read
       if (data["read"] == false) {
     
         let read_to_send = {
@@ -93,7 +90,8 @@ function show_email() {
       document.querySelector('#email-subject').value = data["subject"];
       document.querySelector('#email-body').value = data["body"];
       document.querySelector('#button-archive').addEventListener("click", function() {
-       loading_view("compose")}
+        
+        loading_view("compose")}
        )
 
       document.querySelector('#button-reply').addEventListener("click", function() {
