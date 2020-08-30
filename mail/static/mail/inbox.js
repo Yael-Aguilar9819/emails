@@ -92,15 +92,21 @@ function show_email() {
         console.log("weon");
       })
 
-      document.querySelector('#button-reply').addEventListener("click", function() {
-        // Adds data to the hidden compose view, and then hides the current view and shows the compose one
-        document.querySelector('#compose-recipients').value = recipients_of_email(data["recipients"]); 
-        document.querySelector('#compose-subject').value = data["subject"];
-        document.querySelector('#compose-body').value = data["body"];
+      //Checks if the sender is the useraccount, if it is, makes reply possible
+      if (data["sender"] == document.querySelector("#username_of_account").innerHTML) {
+        document.querySelector('#button-reply').style.display = 'none';  
+      }
+      else {  
+        document.querySelector('#button-reply').addEventListener("click", function() {
+          // Adds data to the hidden compose view, and then hides the current view and shows the compose one
+          document.querySelector('#compose-recipients').value = recipients_of_email(data["recipients"]); 
+          document.querySelector('#compose-subject').value = data["subject"];
+          document.querySelector('#compose-body').value = data["body"];
 
-        loading_view("compose")
-      })
-
+          loading_view("compose")
+        })
+      }
+      
     })
 }
 
