@@ -64,10 +64,7 @@ function send_PUT_update_request(email_id, data_to_update) {
 // This functions fetches the email from the DB and displays it
 function show_email() {
 
-  document.querySelector('#emails-view').style.display = 'none';
-  document.querySelector('#compose-view').style.display = 'none';
-  document.querySelector('#individual-email').style.display = 'block';
-
+  loading_view("individual_email");
 
   let email_id = this.getAttribute("data-email_id")
 
@@ -85,17 +82,23 @@ function show_email() {
         send_PUT_update_request(email_id, read_to_send);
       }
 
+      //Populates each field with the info from the request
       document.querySelector('#sender-email').value = data["sender"];
       document.querySelector('#recipients').value = recipients_of_email(data["recipients"]);
       document.querySelector('#email-subject').value = data["subject"];
       document.querySelector('#email-body').value = data["body"];
+
       document.querySelector('#button-archive').addEventListener("click", function() {
-        
-        loading_view("compose")}
-       )
+        console.log("weon");
+      })
 
       document.querySelector('#button-reply').addEventListener("click", function() {
-        console.log(document.querySelector('#user-email').value);
+        // Adds data to the hidden compose view, and then hides the current view and shows the compose one
+        document.querySelector('#compose-recipients').value = recipients_of_email(data["recipients"]); 
+        document.querySelector('#compose-subject').value = data["subject"];
+        document.querySelector('#compose-body').value = data["body"];
+
+        loading_view("compose")
       })
 
     })
@@ -105,9 +108,7 @@ function show_email() {
 function compose_email() {
 
   // Show compose view and hide other views
-  document.querySelector('#emails-view').style.display = 'none';
-  document.querySelector('#individual-email').style.display = 'none';
-  document.querySelector('#compose-view').style.display = 'block';
+  loading_view("compose");
 
   // Clear out composition fields
   document.querySelector('#compose-recipients').value = '';
@@ -142,9 +143,7 @@ function compose_email() {
 function load_mailbox(mailbox) {
 
   // Show the mailbox and hide other views
-  document.querySelector('#individual-email').style.display = 'none';
-  document.querySelector("#compose-view").style.display = "none";
-  document.querySelector("#emails-view").style.display = "block";
+  loading_view("emails");
 
   // Show the mailbox name
   document.querySelector("#emails-view").innerHTML = `<h3>${
